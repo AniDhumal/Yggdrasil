@@ -71,7 +71,7 @@ export default class Strategy {
           strategyAddress: this.strategyAddress,
           userAddress: this.userAddress,
           strategyUniqueId: this.strategyUniqueId,
-          inputAmount: this.inputAmount,
+          inputAmount: this.inputAmount.toString(),
         },
       });
     }
@@ -82,7 +82,7 @@ export default class Strategy {
           strategyUniqueId: this.strategyUniqueId,
         },
         data: {
-          outputAmount: outputAmount,
+          outputAmount: outputAmount.toString(),
         },
       });
 

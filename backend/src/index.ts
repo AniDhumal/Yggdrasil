@@ -5,21 +5,21 @@ import ProtocolMonitoring from './ProtocolMonitoring';
 
 class Main {
   eventMonitor_Arb: EventMonitoring;
-  eventMonitor_Pol: EventMonitoring;
+  // eventMonitor_Pol: EventMonitoring;
   protocolMonitor: ProtocolMonitoring;
   arbitrumStrategies: string[];
-  polygonStrategies: string[];
+  // polygonStrategies: string[];
 
   constructor() {
     // * Arbitrum Monitoring
     // * ===================
-    this.arbitrumStrategies = ['0x938c795358fD433aDdbd1374eCe2aD69D61a31F2'];
+    this.arbitrumStrategies = ['0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340'];
     this.eventMonitor_Arb = new EventMonitoring(CONFIG.CHAIN_NAME_MAPPING.ARBITRUM_GOERLI, this.arbitrumStrategies);
 
     // * Polygon POS Monitoring
     // * ======================
-    this.polygonStrategies = ['0xB8A3D563c7A68d847e648B5d114D2ADC43E8444d'];
-    this.eventMonitor_Pol = new EventMonitoring(CONFIG.CHAIN_NAME_MAPPING.POLYGON_MUMBAI, this.polygonStrategies);
+    // this.polygonStrategies = ['0xB8A3D563c7A68d847e648B5d114D2ADC43E8444d'];
+    // this.eventMonitor_Pol = new EventMonitoring(CONFIG.CHAIN_NAME_MAPPING.POLYGON_MUMBAI, this.polygonStrategies);
 
     // * Protocol Monitoring
     // * ===================
@@ -30,7 +30,7 @@ class Main {
   run = () => {
     this._consoleLog('Main engine started');
     this.eventMonitor_Arb.startMonitor();
-    this.eventMonitor_Pol.startMonitor();
+    // this.eventMonitor_Pol.startMonitor();
     this.protocolMonitor.startMonitor();
   };
 

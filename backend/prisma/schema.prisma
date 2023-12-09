@@ -29,6 +29,6 @@ model StrategyExecution {
   strategyAddress  String
   userAddress      String
   strategyUniqueId String @unique
-  inputAmount      Int
-  outputAmount     Int    @default(0)
+  inputAmount      String
+  outputAmount     String @default("0")
 }

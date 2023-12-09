@@ -4,7 +4,14 @@ Yggdrasil backend is basically an engine that monitors the events, state of all 
 
 ![offchain](../docs/offchain.png)
 
-### Functions
+## Index
+
+- [Yggdrasil-backend](#yggdrasil-backend)
+  - [Index](#index)
+  - [Functions](#functions)
+  - [Setup](#setup)
+
+## Functions
 
 - `Protocol Monitoring` : Here our engine basically monitors the several DAPPs such as stader and lido finance for any major price fluctuations. So if there is a fluctuation we will pause the transactions to that particular DAPP.
 
@@ -14,7 +21,7 @@ Yggdrasil backend is basically an engine that monitors the events, state of all 
 
 - `Fusion API Module` : For some strategies one migh require to swap the asset into some other asset so to save the user's hastle we are including the implementation of fusion-api for one inch module to swap the assets on the backend and then sending the transaction to the contract with the data.
 
-### Setup
+## Setup
 
 **To setup the database using docker :**
 
