@@ -13,6 +13,12 @@ contract Strategy2 is IStrategy {
     address marketToken; //weth
     address aToken;
 
+    //MUMBAI
+    //  WETH-AToken-Polygon           │ '0xAba444af64ad33A6d8575b8A353226997d6A126a' │
+    //  USDC 0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747
+    //  WETH 0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa
+    //  aaveLP 0xb591802405cce79fC9CD163fF04D201FE5CB5aAf
+
     constructor(
         address _aaveLP,
         address _offchain,
