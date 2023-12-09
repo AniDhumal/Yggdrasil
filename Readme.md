@@ -15,7 +15,12 @@ Unlock the potential of multi-chain investing and be part of the future in strat
   - [Index](#index)
   - [How we add strategies ?](#how-we-add-strategies-)
   - [Mechanism](#mechanism)
+    - [Backend](#backend)
+    - [Smart Contracts](#smart-contracts)
   - [Deployed Addresses](#deployed-addresses)
+    - [Scroll Sepolia](#scroll-sepolia)
+    - [Linea Goerli](#linea-goerli)
+    - [Arbitrum Goerli](#arbitrum-goerli)
   - [Future Scope](#future-scope)
     - [Team : Valhalla](#team--valhalla)
 
@@ -34,11 +39,15 @@ Let's see how a strategy works using a HLD (High Level Diagram)
 
 **We are also using `One Inch Fusion API` in order to swap to the tokens according to the strategy which the user has chosen to invest in.**
 
+### Backend
+
 **Backend Monitoring System Diagram :**
 
 ![backend](./docs/offchain.png)
 
 **Know more :** [Offchain HLD and Docs](./backend/Readme.md)
+
+### Smart Contracts
 
 **Contract Interation :**
 
@@ -48,9 +57,28 @@ Let's see how a strategy works using a HLD (High Level Diagram)
 
 ## Deployed Addresses
 
-- Scroll Sepolia
-- Linea Goerli
-- Arbitrum Goerli
+#### Scroll Sepolia
+
+```sh
+Vault : 0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58
+Strategy Manager : 0x5B7d72e1B7EDfF99153fE0b722548B154E7c86f1
+Strategy Scroll : 0x2E1042A93a8657Bad5BcBFa88F59a59abE42f7d2
+```
+
+#### Linea Goerli
+
+```sh
+Vault : 0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340
+Strategy Manager : 0x88c8627816361f1438C8D4C692647BbCc96FF50d
+Strategy Linea : 0x83EfCf6d2C4FD9ED637BF9da8dD19174308d532B
+```
+
+#### Arbitrum Goerli
+
+```sh
+Strategy Manager : 0x83E6B164C6D130567316cECF3Bc7879203772943
+Strategy 3 : 0x938c795358fD433aDdbd1374eCe2aD69D61a31F2
+```
 
 ## Future Scope
 
@@ -65,7 +93,7 @@ Let's see how a strategy works using a HLD (High Level Diagram)
 #### Team : Valhalla
 
 - Marc Erichnadhan Anthony
-- Aniruddha
-- Zeaphrine
+- Aniruddha Dhumal
+- Zeaphrine Islary
 - Arun Jangra
 - Venkat Teja
