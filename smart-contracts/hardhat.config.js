@@ -21,9 +21,10 @@ module.exports = {
       url: "https://arb1.arbitrum.io/rpc",
       //accounts: [ARBITRUM_MAINNET_TEMPORARY_PRIVATE_KEY]
     },
-    Mumbai: {
-      url: "https://rpc-mumbai.matic.today",
-      //accounts: 
+    mumbai: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      chainId: 80001,
+      accounts: [POLYGON_PRIVATE_KEY],
     }
   },
 };
