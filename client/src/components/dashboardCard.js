@@ -212,9 +212,16 @@ const estimateGasFee = async () => {
 
             <div className="flex flex-col">
               <input type="number" value={inputValue} className="m-2 p-2" placeholder='0.0' onChange={handleInputInvestChange}></input>
-              <button onClick={openModal} className={`m-2 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded ${chainId !== _chainId ? 'disabled:opacity-50 cursor-not-allowed': ''}`} disabled={chainId !== _chainId}>
-                Invest
-              </button>
+              { chainId == 421613 || chainId == 534351 ?
+                  <button onClick={()=>handleInvest(
+                    inputValue.toString()
+                  )} className={`m-2 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded ${chainId !== _chainId ? 'disabled:opacity-50 cursor-not-allowed': ''}`} disabled={chainId !== _chainId}>
+                  Invest
+                </button> :
+                  <button onClick={openModal} className={`m-2 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded ${chainId !== _chainId ? 'disabled:opacity-50 cursor-not-allowed': ''}`} disabled={chainId !== _chainId}>
+                    Invest
+                  </button>
+              }
             </div>
 
           </div>
