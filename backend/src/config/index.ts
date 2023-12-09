@@ -18,7 +18,11 @@ export const CONFIG = {
       },
       // ? Strategies which are dependent on 1 inch fusion api for performing slippage less swaps and then investing according to the particular strategy
       // ? Only on Polygon POS
-      SPECIAL_STRATEGY_ADDRESS: [''],
+    },
+    POLYGON: {
+      MAINNET: {
+        SPECIAL_STRATEGY_ADDRESS: [''],
+      },
     },
   },
 };

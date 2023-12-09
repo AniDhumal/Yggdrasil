@@ -39,7 +39,9 @@ export default class Strategy {
     await this._addDataToDb('invest', 0);
 
     // ? Strategy 2 case :
-    if (CONFIG.ADDRESSES.ETHEREUM.SPECIAL_STRATEGY_ADDRESS.indexOf(this.strategyAddress) !== -1) {
+    // ? Only for Polygon Mainnet
+    // ? --------------------------
+    if (CONFIG.ADDRESSES.POLYGON.MAINNET.SPECIAL_STRATEGY_ADDRESS.indexOf(this.strategyAddress) !== -1) {
       await _swapFusion(this.strategyAddress, this.inputAmount.toString(), this.userAddress);
     }
 
