@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.14;
-import {IStrategy} from "./interfaces/IStrategy.sol";
-import {IYearn} from "./interfaces/IYearn.sol";
+import {IStrategy} from "../../interfaces/IStrategy.sol";
+import {IYearn} from "./IYearn.sol";
 
 contract Strategy2 is IStrategy {
     address public strategist;
@@ -30,7 +30,7 @@ contract Strategy2 is IStrategy {
         uint amount5
     ) external onlyOffchain {
         //stake the amount with yearn
-        IYearn(yearnStrategy).deposit(amount);
+        IYearn(yearnStrategy).deposit(amount5);
     }
 
     function divest(address user, uint amount) external payable {

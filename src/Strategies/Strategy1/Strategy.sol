@@ -1,10 +1,10 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.14;
-import {IStrategy} from "./interfaces/IStrategy.sol";
-import "./interfaces/IWETH.sol";
-import "./interfaces/IUniswapV2Router.sol";
-import "./interfaces/ILendingPool.sol";
-import "./interfaces/IERC20.sol";
+import {IStrategy} from "../../interfaces/IStrategy.sol";
+import "../../interfaces/IWETH.sol";
+import "../../interfaces/IUniswapV2Router.sol";
+import "../../interfaces/ILendingPool.sol";
+import "../../interfaces/IERC20.sol";
 
 contract Strategy is IStrategy {
     address public strategist;
