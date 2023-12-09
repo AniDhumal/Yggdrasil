@@ -66,10 +66,10 @@ contract StrategyManager {
         );
         nonceToInvestment[nonce] = inv;
         if (msg.value == 0) {
-            IStrategy(strategy).invest(amount);
+            IStrategy(strategy).invest(msg.sender, amount);
         } else {
             require(amount == 0);
-            IStrategy(strategy).invest{value: msg.value}(0);
+            IStrategy(strategy).invest{value: msg.value}(msg.sender, 0);
         }
         //update a state var which keeps record of the funds invested by the user with the particular strategy
         //event emission
@@ -82,7 +82,7 @@ contract StrategyManager {
         address strategy = inv.strategy;
         uint amount = inv.amount;
         inv.status = Status.DIVESTED;
-        IStrategy(strategy).divest(amount);
+        IStrategy(strategy).divest(msg.sender, amount);
         //event emission
     }
 
