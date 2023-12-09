@@ -28,8 +28,8 @@ contract StrategyManager {
     }
     mapping(uint256 => Investment) nonceToInvestment;
 
-    constructor(address _owner) {
-        owner = _owner;
+    constructor() {
+        owner = msg.sender;
     }
 
     modifier onlyOwner() {
