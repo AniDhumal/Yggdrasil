@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.14;
 import {IStrategy} from "../../interfaces/IStrategy.sol";
-import "../../interfaces/IWETH.sol";
+import "../../interfaces/IWMATIC.sol";
 import "../../interfaces/IERC20.sol";
 import "./ISwapRouter.sol";
 import "./IPool.sol";
@@ -10,27 +10,27 @@ contract Strategy3 is IStrategy {
     address public strategist;
     address public immutable strategyManager;
     uint256 public constant fee = 1000; // In basis points
-    address public immutable WETH;
+    address public immutable WMATIC;
     address public immutable WBTC;
     address public immutable UniswapV3Router;
     address public immutable AaveLendingPoolv3;
     address public immutable aBTC;
 
     // Deploy on Arbitrum
-    // WETH = "0x4284186b053ACdBA28E8B26E99475d891533086a";
+    // WMATIC = "0x4284186b053ACdBA28E8B26E99475d891533086a";
     // UniswapRouterV3 = ""0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD"
     // WBTC = "0x1377b75237a9ee83aC0C76dE258E68e875d96334"
     // AaveLendingPoolV3 = "0x8d284fE251BB7Fe6B529FC2f27BAb415FcF46B25"
 
     constructor(
-        address _WETH,
+        address _WMATIC,
         address _WBTC,
         address _UniswapRouterV3,
         address _AaveLendingPoolv3,
         address _strategyManager,
         address _aBTC
     ) {
-        WETH = _WETH;
+        WMATIC = _WMATIC;
         WBTC = _WBTC;
         UniswapV3Router = _UniswapRouterV3;
         AaveLendingPoolv3 = _AaveLendingPoolv3;
@@ -43,7 +43,7 @@ contract Strategy3 is IStrategy {
         //should be callable only by the strategy manager
         require(msg.sender == strategyManager);
         require(amt == 0);
-        IWETH(WETH).deposit{value: msg.value}();
+        IWMATIC(WMATIC).deposit{value: msg.value}();
 
         uint256 strategist_fee = (msg.value * fee) / 10000;
         uint256 amount = msg.value - strategist_fee;
@@ -53,7 +53,7 @@ contract Strategy3 is IStrategy {
         // We also set the sqrtPriceLimitx96 to be 0 to ensure we swap our exact input amount.
         ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
             .ExactInputSingleParams({
-                tokenIn: WETH,
+                tokenIn: WMATIC,
                 tokenOut: WBTC,
                 fee: 3000,
                 recipient: address(this),
@@ -91,7 +91,7 @@ contract Strategy3 is IStrategy {
         ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
             .ExactInputSingleParams({
                 tokenIn: WBTC,
-                tokenOut: WETH,
+                tokenOut: WMATIC,
                 fee: 3000,
                 recipient: address(this),
                 deadline: block.timestamp,

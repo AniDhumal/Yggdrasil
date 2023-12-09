@@ -1,8 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/Strategies/Strategy1/Strategy.sol": {
-      "lastModificationDate": 1702103271190,
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/Strategies/Strategy1/Strategy.sol": {
+      "lastModificationDate": 1702121709219,
       "contentHash": "36f9e8bc66fbd5167f70d67b18ed3b81",
       "sourceName": "contracts/src/Strategies/Strategy1/Strategy.sol",
       "solcConfig": {
@@ -42,8 +42,8 @@
         "Strategy"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/interfaces/IStrategy.sol": {
-      "lastModificationDate": 1702102853397,
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/interfaces/IStrategy.sol": {
+      "lastModificationDate": 1702121709219,
       "contentHash": "bf73037796a010100b2675a81c538e01",
       "sourceName": "contracts/src/interfaces/IStrategy.sol",
       "solcConfig": {
@@ -77,8 +77,8 @@
         "IStrategy"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/interfaces/IWETH.sol": {
-      "lastModificationDate": 1702069058228,
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/interfaces/IWETH.sol": {
+      "lastModificationDate": 1702121709219,
       "contentHash": "748b601a143bc5a91903fb13cdf5b413",
       "sourceName": "contracts/src/interfaces/IWETH.sol",
       "solcConfig": {
@@ -112,8 +112,8 @@
         "IWETH"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/interfaces/IUniswapV2Router.sol": {
-      "lastModificationDate": 1702073430940,
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/interfaces/IUniswapV2Router.sol": {
+      "lastModificationDate": 1702121709219,
       "contentHash": "e73f479f5b91505482497541c367a7c4",
       "sourceName": "contracts/src/interfaces/IUniswapV2Router.sol",
       "solcConfig": {
@@ -147,9 +147,9 @@
         "IUniswapV2Router"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/interfaces/ILendingPool.sol": {
-      "lastModificationDate": 1702071616967,
-      "contentHash": "7515c1480786920acfb9f2f5b120d0c9",
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/interfaces/ILendingPool.sol": {
+      "lastModificationDate": 1702121712629,
+      "contentHash": "a7862939f5f51b337ff8106e878abe1e",
       "sourceName": "contracts/src/interfaces/ILendingPool.sol",
       "solcConfig": {
         "version": "0.8.18",
@@ -182,8 +182,8 @@
         "ILendingPool"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/interfaces/IERC20.sol": {
-      "lastModificationDate": 1702070761943,
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/interfaces/IERC20.sol": {
+      "lastModificationDate": 1702121709219,
       "contentHash": "db7834232bab3fec59ae5f868b0fd5a1",
       "sourceName": "contracts/src/interfaces/IERC20.sol",
       "solcConfig": {
@@ -217,9 +217,9 @@
         "IERC20"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/Strategies/Strategy3/Strategy3.sol": {
-      "lastModificationDate": 1702111963523,
-      "contentHash": "4200509231d5492ab8ff10e9285b4d6c",
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/Strategies/Strategy3/Strategy3.sol": {
+      "lastModificationDate": 1702141337702,
+      "contentHash": "ec69c6a054eda6de4e6c6803e150b82d",
       "sourceName": "contracts/src/Strategies/Strategy3/Strategy3.sol",
       "solcConfig": {
         "version": "0.8.18",
@@ -246,7 +246,7 @@
       },
       "imports": [
         "../../interfaces/IStrategy.sol",
-        "../../interfaces/IWETH.sol",
+        "../../interfaces/IWMATIC.sol",
         "../../interfaces/IERC20.sol",
         "./ISwapRouter.sol",
         "./IPool.sol"
@@ -258,43 +258,8 @@
         "Strategy3"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/Strategies/Strategy3/IPool.sol": {
-      "lastModificationDate": 1702105786676,
-      "contentHash": "f3df343b7df303b0ea493e6d3cfd0343",
-      "sourceName": "contracts/src/Strategies/Strategy3/IPool.sol",
-      "solcConfig": {
-        "version": "0.8.18",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.14"
-      ],
-      "artifacts": [
-        "IPool"
-      ]
-    },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/Strategies/Strategy3/ISwapRouter.sol": {
-      "lastModificationDate": 1702105382530,
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/Strategies/Strategy3/ISwapRouter.sol": {
+      "lastModificationDate": 1702121709219,
       "contentHash": "7419c3b8236a538697558664db8e0270",
       "sourceName": "contracts/src/Strategies/Strategy3/ISwapRouter.sol",
       "solcConfig": {
@@ -328,9 +293,44 @@
         "ISwapRouter"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/StrategyManager.sol": {
-      "lastModificationDate": 1702109456157,
-      "contentHash": "ede23d448713196eb53c1b9f564d1fb6",
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/Strategies/Strategy3/IPool.sol": {
+      "lastModificationDate": 1702121709219,
+      "contentHash": "f3df343b7df303b0ea493e6d3cfd0343",
+      "sourceName": "contracts/src/Strategies/Strategy3/IPool.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.14"
+      ],
+      "artifacts": [
+        "IPool"
+      ]
+    },
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/StrategyManager.sol": {
+      "lastModificationDate": 1702135789135,
+      "contentHash": "015663649f37897a9f40d11907d33667",
       "sourceName": "contracts/src/StrategyManager.sol",
       "solcConfig": {
         "version": "0.8.18",
@@ -355,19 +355,18 @@
           }
         }
       },
-      "imports": [
-        "./interfaces/IStrategy.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.14"
       ],
       "artifacts": [
+        "IStrategy",
         "StrategyManager"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/Strategies/Strategy2/Strategy2.sol": {
-      "lastModificationDate": 1702109197014,
-      "contentHash": "fd8a3b62bffed389ed8e4241eb802542",
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/Strategies/Strategy2/Strategy2.sol": {
+      "lastModificationDate": 1702124119762,
+      "contentHash": "42ca57c02d548e700a9083576b36ce84",
       "sourceName": "contracts/src/Strategies/Strategy2/Strategy2.sol",
       "solcConfig": {
         "version": "0.8.18",
@@ -394,7 +393,7 @@
       },
       "imports": [
         "../../interfaces/IStrategy.sol",
-        "./IYearn.sol",
+        "./IAave.sol",
         "../../interfaces/IERC20.sol"
       ],
       "versionPragmas": [
@@ -404,8 +403,43 @@
         "Strategy2"
       ]
     },
-    "/Users/hashstack04/Personal/ETHIndia/Yggdrasil/contracts/src/Strategies/Strategy2/IYearn.sol": {
-      "lastModificationDate": 1702109007153,
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/Strategies/Strategy2/IAave.sol": {
+      "lastModificationDate": 1702121868761,
+      "contentHash": "4886b8a26cac8637ec6848ba0be159fc",
+      "sourceName": "contracts/src/Strategies/Strategy2/IAave.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.14"
+      ],
+      "artifacts": [
+        "IAave"
+      ]
+    },
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/Strategies/Strategy2/IYearn.sol": {
+      "lastModificationDate": 1702121709219,
       "contentHash": "697d12215a554d0c7d1ddc8bd7afa50a",
       "sourceName": "contracts/src/Strategies/Strategy2/IYearn.sol",
       "solcConfig": {
@@ -437,6 +471,41 @@
       ],
       "artifacts": [
         "IYearn"
+      ]
+    },
+    "/home/aniruddha/ETH-IN-2023/Yggdrasil/contracts/src/interfaces/IWMATIC.sol": {
+      "lastModificationDate": 1702141332031,
+      "contentHash": "617fb922e34646fc0734123e9001512a",
+      "sourceName": "contracts/src/interfaces/IWMATIC.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.0"
+      ],
+      "artifacts": [
+        "IWMATIC"
       ]
     }
   }
