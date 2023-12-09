@@ -1,6 +1,22 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.14;
-import {IStrategy} from "./interfaces/IStrategy.sol";
+
+// import {IStrategy} from "./interfaces/IStrategy.sol";
+interface IStrategy {
+    event Invest(address indexed user, uint256 amount);
+    event Divest(
+        address user,
+        uint256 invested_amount,
+        uint256 received_amount
+    );
+    event FeeDeduction(address user, address strategist, uint256 fee_amount);
+
+    function invest(address, uint) external payable;
+
+    function divest(address, uint) external payable;
+
+    function getRoyalty() external view returns (uint256);
+}
 
 contract StrategyManager {
     address owner;
@@ -8,7 +24,7 @@ contract StrategyManager {
     mapping(address => uint256) strategistWhitelist;
     mapping(address => uint256) whiteListQueue;
     mapping(address => uint256) whitelistedStrategies;
-    //maps users=>strategy=>amount=>nonce
+    //maps users=>strategy=>amount= >nonce
     mapping(address => mapping(address => mapping(uint256 => uint256))) userStrategyAmountNonce;
     //maps user nonce to strategy address
     mapping(address => mapping(uint256 => address)) userNonceStrategy;
@@ -55,6 +71,10 @@ contract StrategyManager {
         whitelistedStrategies[strategy] = 1;
     }
 
+    function whiteListStrategist(address strategist) public onlyOwner {
+        strategistWhitelist[strategist] = 1;
+    }
+
     function invest(uint256 amount, address strategy) external payable {
         require(isStrategyWhitelisted(strategy), "Strategy not whitelisted");
         nonce++;
@@ -93,7 +113,7 @@ contract StrategyManager {
     function isStrategistWhitelisted(
         address strategist
     ) internal view returns (bool) {
-        return (rejectedStrategies[strategist] == 1);
+        return (strategistWhitelist[strategist] == 1);
     }
 
     function isStrategyWhitelisted(

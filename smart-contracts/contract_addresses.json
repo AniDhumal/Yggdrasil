@@ -1,0 +1,16 @@
+{
+  "arbitrum_goerli_addresses": {
+    "StrategyManager": "0x83E6B164C6D130567316cECF3Bc7879203772943",
+    "Strategy3": "0x938c795358fD433aDdbd1374eCe2aD69D61a31F2"
+  },
+  "linea_goerli_addresses": {
+    "Vault": "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340",
+    "StrategyManager": "0x88c8627816361f1438C8D4C692647BbCc96FF50d",
+    "StrategyLinea": "0xa2746dcD4F45FAF612350bC2D3adD6C0a36e9eA5"
+  },
+  "scroll_goerli_addresses": {
+    "Vault": "0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58",
+    "StrategyManager": "0x83Ee86859910f05631a4aa11199003B4FB07f3A1",
+    "StrategyScroll": "0x2E1042A93a8657Bad5BcBFa88F59a59abE42f7d2"
+  }
+}

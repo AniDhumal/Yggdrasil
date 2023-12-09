@@ -5,9 +5,8 @@ import "../../interfaces/IWETH.sol";
 import "../../interfaces/IERC20.sol";
 import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
 
-contract Strategy3 is IStrategy {
+contract StrategyLinea is IStrategy {
     address public strategist;
-    address public immutable strategyManager;
     uint256 public constant fee = 1000; // In basis points
     address public immutable WETH;
     address public immutable vault_address;
@@ -18,19 +17,18 @@ contract Strategy3 is IStrategy {
 
     constructor(
         address _WETH,
-        address _strategyManager,
+        address _strategist,
         address _vault_address
     ) {
         WETH = _WETH;
-        strategyManager = _strategyManager;
+        strategist = _strategist;
         vault_address = _vault_address;
     }
 
     function invest(address user, uint amt) external payable {
         //param here is amount
         //should be callable only by the strategy manager
-        require(msg.sender == strategyManager);
-        require(amt == 0);
+        // require(amt == 0);
 
         uint256 strategist_fee = (msg.value * fee) / 10000;
         uint256 amount = msg.value - strategist_fee;
@@ -40,6 +38,7 @@ contract Strategy3 is IStrategy {
         emit FeeDeduction(user, strategist, strategist_fee);
 
         IERC4626(vault_address).deposit(amount, user);
+        payable(strategist).transfer(strategist_fee);
         //update a state var which keeps record of the funds invested by the user with the particular strategy
 
         emit Invest(user, amount);
@@ -47,12 +46,12 @@ contract Strategy3 is IStrategy {
 
     function divest(address user, uint256 amount) external payable {
         //should be callable only by the strategy manager
-        require(msg.sender == strategyManager);
         
         uint256 redeemedTokens = IERC4626(vault_address).redeem(amount, address(this), user);
 
         uint256 strategist_fee = (redeemedTokens * fee) / 10000;
         payable(user).transfer(redeemedTokens - strategist_fee);
+        payable(strategist).transfer(strategist_fee);
 
         emit FeeDeduction(user, strategist, strategist_fee);
         emit Divest(user, amount, redeemedTokens - strategist_fee);
