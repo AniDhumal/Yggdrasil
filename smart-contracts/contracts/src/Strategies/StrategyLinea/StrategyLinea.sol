@@ -40,7 +40,11 @@ contract StrategyLinea is IStrategy {
         emit FeeDeduction(user, strategist, strategist_fee);
 
         IERC4626(vault_address).deposit(amount, user);
-        payable(strategist).transfer(strategist_fee);
+        // payable(strategist).transfer(strategist_fee);
+
+        // ! Changed logic
+        (bool success, ) = payable(strategist).call{value: strategist_fee}("");
+        require(success, "Failed to send Ether");
         //update a state var which keeps record of the funds invested by the user with the particular strategy
 
         emit Invest(user, amount);
