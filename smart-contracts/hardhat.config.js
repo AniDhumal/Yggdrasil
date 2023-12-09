@@ -44,20 +44,24 @@ module.exports = {
       accounts: [LINEA_TESTNET_PRIVATE_KEY],
       minGasPrice: 10000000,
     },
-    etherscan: {
-      apiKey: {
-        scrollSepolia: "abc",
-      },
-      customChains: [
-        {
-          network: "scrollSepolia",
-          chainId: 534351,
-          urls: {
-            apiURL: "https://sepolia-blockscout.scroll.io/api",
-            browserURL: "https://sepolia-blockscout.scroll.io/",
-          },
-        },
-      ],
+    zkEVM_testnet: {
+      url: "https://rpc.public.zkevm-test.net",
+      accounts: [LINEA_TESTNET_PRIVATE_KEY],
     },
+    // etherscan: {
+    //   apiKey: {
+    //     scrollSepolia: "abc",
+    //   },
+    //   customChains: [
+    //     {
+    //       network: "scrollSepolia",
+    //       chainId: 534351,
+    //       urls: {
+    //         apiURL: "https://sepolia-blockscout.scroll.io/api",
+    //         browserURL: "https://sepolia-blockscout.scroll.io/",
+    //       },
+    //     },
+    //   ],
+    // },
   },
 };
