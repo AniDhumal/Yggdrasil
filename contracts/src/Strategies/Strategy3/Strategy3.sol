@@ -16,12 +16,11 @@ contract Strategy3 is IStrategy {
     address public immutable AaveLendingPoolv3;
     address public immutable aBTC;
 
-
-// Deploy on Arbitrum
-// WETH = "0x4284186b053ACdBA28E8B26E99475d891533086a";
-// UniswapRouterV3 = ""0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD"
-// WBTC = "0x1377b75237a9ee83aC0C76dE258E68e875d96334"
-// AaveLendingPoolV3 = "0x8d284fE251BB7Fe6B529FC2f27BAb415FcF46B25"
+    // Deploy on Arbitrum
+    // WETH = "0x4284186b053ACdBA28E8B26E99475d891533086a";
+    // UniswapRouterV3 = ""0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD"
+    // WBTC = "0x1377b75237a9ee83aC0C76dE258E68e875d96334"
+    // AaveLendingPoolV3 = "0x8d284fE251BB7Fe6B529FC2f27BAb415FcF46B25"
 
     constructor(
         address _WETH,
@@ -52,8 +51,8 @@ contract Strategy3 is IStrategy {
 
         // Naively set amountOutMinimum to 0. In production, use an oracle or other data source to choose a safer value for amountOutMinimum.
         // We also set the sqrtPriceLimitx96 to be 0 to ensure we swap our exact input amount.
-        ISwapRouter.ExactInputSingleParams memory params =
-            ISwapRouter.ExactInputSingleParams({
+        ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
+            .ExactInputSingleParams({
                 tokenIn: WETH,
                 tokenOut: WBTC,
                 fee: 3000,
@@ -63,7 +62,9 @@ contract Strategy3 is IStrategy {
                 amountOutMinimum: 0,
                 sqrtPriceLimitX96: 0
             });
-        uint256 amountOut=  ISwapRouter(UniswapV3Router).exactInputSingle(params);
+        uint256 amountOut = ISwapRouter(UniswapV3Router).exactInputSingle(
+            params
+        );
 
         IERC20(WBTC).approve(AaveLendingPoolv3, amountOut);
         IPool(AaveLendingPoolv3).supply(WBTC, amountOut, user, 0);
@@ -87,8 +88,8 @@ contract Strategy3 is IStrategy {
         //Approve Aave lending pool to use WBTC
         IERC20(WBTC).approve(UniswapV3Router, wbtc_received);
 
-        ISwapRouter.ExactInputSingleParams memory params =
-            ISwapRouter.ExactInputSingleParams({
+        ISwapRouter.ExactInputSingleParams memory params = ISwapRouter
+            .ExactInputSingleParams({
                 tokenIn: WBTC,
                 tokenOut: WETH,
                 fee: 3000,
@@ -99,7 +100,9 @@ contract Strategy3 is IStrategy {
                 sqrtPriceLimitX96: 0
             });
 
-        uint256 amountOut = ISwapRouter(UniswapV3Router).exactInputSingle(params);
+        uint256 amountOut = ISwapRouter(UniswapV3Router).exactInputSingle(
+            params
+        );
 
         uint256 strategist_fee = (amountOut * fee) / 10000;
         payable(user).transfer(amountOut - strategist_fee);
