@@ -3,11 +3,13 @@ export const CONFIG = {
     ETHEREUM_GOERLI: 5,
     ARBITRUM_GOERLI: 421613,
     POLYGON_MAINNET: 137,
+    POLYGON_MUMBAI: 80001,
   },
   CHAIN_MAPPING: {
     '5': 'ETH',
     '421613': 'ARBITRUM',
-    '137': 'POLYGON',
+    '137': 'POLYGON_MAINNET',
+    '80001': 'POLYGON_MUMBAI',
   },
   PRICE_FLUCTUATION_FACTOR: 5,
   ADDRESSES: {
@@ -18,7 +20,11 @@ export const CONFIG = {
       },
       // ? Strategies which are dependent on 1 inch fusion api for performing slippage less swaps and then investing according to the particular strategy
       // ? Only on Polygon POS
-      SPECIAL_STRATEGY_ADDRESS: [''],
+    },
+    POLYGON: {
+      MAINNET: {
+        SPECIAL_STRATEGY_ADDRESS: [''],
+      },
     },
   },
 };

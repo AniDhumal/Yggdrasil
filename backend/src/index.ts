@@ -4,15 +4,22 @@ import { CONFIG } from './config';
 import ProtocolMonitoring from './ProtocolMonitoring';
 
 class Main {
-  eventMonitor: EventMonitoring;
+  eventMonitor_Arb: EventMonitoring;
+  eventMonitor_Pol: EventMonitoring;
   protocolMonitor: ProtocolMonitoring;
   arbitrumStrategies: string[];
+  polygonStrategies: string[];
 
   constructor() {
     // * Arbitrum Monitoring
     // * ===================
     this.arbitrumStrategies = ['0x938c795358fD433aDdbd1374eCe2aD69D61a31F2'];
-    this.eventMonitor = new EventMonitoring(CONFIG.CHAIN_NAME_MAPPING.ARBITRUM_GOERLI, this.arbitrumStrategies);
+    this.eventMonitor_Arb = new EventMonitoring(CONFIG.CHAIN_NAME_MAPPING.ARBITRUM_GOERLI, this.arbitrumStrategies);
+
+    // * Polygon POS Monitoring
+    // * ======================
+    this.polygonStrategies = ['0xB8A3D563c7A68d847e648B5d114D2ADC43E8444d'];
+    this.eventMonitor_Pol = new EventMonitoring(CONFIG.CHAIN_NAME_MAPPING.POLYGON_MUMBAI, this.polygonStrategies);
 
     // * Protocol Monitoring
     // * ===================
@@ -22,7 +29,8 @@ class Main {
 
   run = () => {
     this._consoleLog('Main engine started');
-    this.eventMonitor.startMonitor();
+    this.eventMonitor_Arb.startMonitor();
+    this.eventMonitor_Pol.startMonitor();
     this.protocolMonitor.startMonitor();
   };
 
