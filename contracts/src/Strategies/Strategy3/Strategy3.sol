@@ -6,7 +6,7 @@ import "../../interfaces/IERC20.sol";
 import "./ISwapRouter.sol";
 import "./IPool.sol";
 
-contract Strategy is IStrategy {
+contract Strategy3 is IStrategy {
     address public strategist;
     address public immutable strategyManager;
     uint256 public constant fee = 1000; // In basis points
@@ -18,9 +18,9 @@ contract Strategy is IStrategy {
 
 
 // Deploy on Arbitrum
-// WETH = "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1";
+// WETH = "0x4284186b053ACdBA28E8B26E99475d891533086a";
 // UniswapRouterV3 = ""0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD"
-// WBTC = "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f"
+// WBTC = "0x1377b75237a9ee83aC0C76dE258E68e875d96334"
 // AaveLendingPoolV3 = "0x8d284fE251BB7Fe6B529FC2f27BAb415FcF46B25"
 
     constructor(
