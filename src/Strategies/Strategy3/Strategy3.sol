@@ -8,8 +8,8 @@ import "./IPool.sol";
 
 contract Strategy is IStrategy {
     address public strategist;
-    address public strategyManager;
-    uint256 immutable fee = 1000; // In basis points
+    address public immutable strategyManager;
+    uint256 public constant fee = 1000; // In basis points
     address public immutable WETH;
     address public immutable WBTC;
     address public immutable UniswapV3Router;
@@ -36,7 +36,7 @@ contract Strategy is IStrategy {
         UniswapV3Router = _UniswapRouterV3;
         AaveLendingPoolv3 = _AaveLendingPoolv3;
         strategyManager = _strategyManager;
-        _aBTC = aBTC;
+        aBTC = _aBTC;
     }
 
     function invest(address user, uint amt) external payable {
@@ -87,16 +87,6 @@ contract Strategy is IStrategy {
         //Approve Aave lending pool to use WBTC
         IERC20(WBTC).approve(UniswapV3Router, wbtc_received);
 
-
-        // uint256 amounts = IUniswapV2Router(UniswapV3Router)
-        //     .swapExactTokensForETH(
-        //         wbtc_received,
-        //         0,
-        //         path,
-        //         address(this),
-        //         block.timestamp + 2400
-        //     );
-
         ISwapRouter.ExactInputSingleParams memory params =
             ISwapRouter.ExactInputSingleParams({
                 tokenIn: WBTC,
@@ -109,7 +99,7 @@ contract Strategy is IStrategy {
                 sqrtPriceLimitX96: 0
             });
 
-        uint256 amountOut=  ISwapRouter(UniswapV3Router).exactInputSingle(params);
+        uint256 amountOut = ISwapRouter(UniswapV3Router).exactInputSingle(params);
 
         uint256 strategist_fee = (amountOut * fee) / 10000;
         payable(user).transfer(amountOut - strategist_fee);
