@@ -12,6 +12,15 @@ This folder contains the on chain logic of the strategies and the implementation
 
 **We will audit the strategies ourselves before integrating it with our product.**
 
+### Deployed Upon :
+
+- Arbitrum Goerli
+- Polygon POS Mumbai
+- Polygon zkEVM Goerli
+- Linea Goerli
+- Scroll Sepolia
+- Base Goerli
+
 ### Setup
 
 ```sh
