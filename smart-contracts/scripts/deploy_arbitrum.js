@@ -5,7 +5,7 @@ const { ethers } = require("hardhat");
 async function deployVault() {
   // Eth vault
   const constructorParams = [
-    "0x5300000000000000000000000000000000000004", // WETH
+    "0x4284186b053ACdBA28E8B26E99475d891533086a", // WETH
     "1",
     "1",
   ];
@@ -13,38 +13,42 @@ async function deployVault() {
   const vault = await ethers.deployContract("ETHVault", constructorParams);
   await vault.waitForDeployment();
   console.log(`Eth Vault deployed to ${vault.target}`);
+  return vault.target;
 }
 
 async function main() {
   const deployer_address = "0xDB8fbe9ddF3316F08CE6a82835C1F06d3a80b234";
-  const scroll_vault = "0x4401de98fe700c5e2c62b2f2c6bed4aee135fc58";
-  const scroll_weth = "0x5300000000000000000000000000000000000004";
+  const arbitrum_goerli_weth = "0x4284186b053ACdBA28E8B26E99475d891533086a";
 
-  // deployVault();
+  //   await deployVault();
+  let arbitrum_goerli_vault = "0x08b59B9c3aAB242745f603F68eA6F992aaF473C0";
 
-  // const strategyManager = await hre.ethers.deployContract("StrategyManager");
-  // await strategyManager.waitForDeployment();
-  // console.log(`Strategy Manager deployed to ${strategyManager.target}`);
+  //   const strategyManager = await hre.ethers.deployContract("StrategyManager");
+  //   await strategyManager.waitForDeployment();
+  //   console.log(`Strategy Manager deployed to ${strategyManager.target}`);
 
-  const constructorParams = [scroll_weth, deployer_address, scroll_vault];
-  const strategy_scroll = await hre.ethers.deployContract(
+  const constructorParams = [
+    arbitrum_goerli_weth,
+    deployer_address,
+    arbitrum_goerli_vault,
+  ];
+  const strategy_arbitrum = await hre.ethers.deployContract(
     "StrategyLinea",
     constructorParams
   );
-  await strategy_scroll.waitForDeployment();
-  console.log(`StrategyLinea deployed to ${strategy_scroll.target}`);
+  await strategy_arbitrum.waitForDeployment();
+  console.log(`StrategyArbitrum deployed to ${strategy_arbitrum.target}`);
 }
 
 async function whitelist() {
-  const manager = "0x5B7d72e1B7EDfF99153fE0b722548B154E7c86f1";
-  const strategy = "0x2E1042A93a8657Bad5BcBFa88F59a59abE42f7d2";
+  const manager = "0x19d12870077DDb6C53FbDeF6818ED504e63b23Ab";
+  const strategy = "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340";
   const deployer_address = "0xDB8fbe9ddF3316F08CE6a82835C1F06d3a80b234";
-  // const linea_weth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C";
 
   let managerInstance = await ethers.getContractAt("StrategyManager", manager);
-  await managerInstance.whiteListStrategist(deployer_address);
-  // await managerInstance.queueWhiteListStrategy(strategy, deployer_address);
-  // await managerInstance.whiteListStrategy(strategy);
+  //   await managerInstance.whiteListStrategist(deployer_address);
+  //   await managerInstance.queueWhiteListStrategy(strategy, deployer_address);
+  //   await managerInstance.whiteListStrategy(strategy);
   // let strategyInstance = await ethers.getContractAt("StrategyLinea", strategy);
   // let weth = await ethers.getContractAt("IERC20", linea_weth);
   // await weth.deposit({ value: ethers.parseEther("0.02") });
@@ -57,7 +61,7 @@ async function whitelist() {
   // console.log("tx", tx);
   // await tx.wait();
 
-  // let vault_address = "0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58";
+  // let vault_address = "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340";
   // let vault = await ethers.getContractAt("ETHVault", vault_address);
   // await vault.approve(strategy, "9000000000000000");
 
