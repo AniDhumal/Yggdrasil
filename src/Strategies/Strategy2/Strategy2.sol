@@ -9,11 +9,19 @@ contract Strategy2 is IStrategy {
     uint256 immutable fee = 1000; // In basis points
     address yearnStrategy;
     address offchain;
-    address baseMarket;
+    address baseToken;
+    address marketToken;
 
-    constructor(address _yearnStrategy, address _offchain) {
+    constructor(
+        address _yearnStrategy,
+        address _offchain,
+        address _baseToken,
+        address _marketToken
+    ) {
         yearnStrategy = _yearnStrategy;
         offchain = _offchain;
+        baseToken = _baseToken;
+        marketToken = _marketToken;
     }
 
     event OffchainDivest(address user, uint amount);
@@ -51,7 +59,7 @@ contract Strategy2 is IStrategy {
         uint amountReq,
         uint amountRecBaseMarket
     ) external onlyOffchain {
-        IERC20(baseMarket).transfer(user, amountRecBaseMarket);
+        IERC20(baseToken).transfer(user, amountRecBaseMarket);
         emit Divest(user, amountReq, amountRecBaseMarket);
     }
 
