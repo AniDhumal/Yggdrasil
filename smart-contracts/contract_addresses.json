@@ -8,9 +8,11 @@
     "StrategyManager": "0x88c8627816361f1438C8D4C692647BbCc96FF50d",
     "StrategyLinea": "0x83EfCf6d2C4FD9ED637BF9da8dD19174308d532B"
   },
-  "scroll_goerli_addresses": {
+  "scroll_sepolia_addresses": {
     "Vault": "0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58",
-    "StrategyManager": "0x83Ee86859910f05631a4aa11199003B4FB07f3A1",
-    "StrategyScroll": "0x2E1042A93a8657Bad5BcBFa88F59a59abE42f7d2"
+    "StrategyManager": "0x5B7d72e1B7EDfF99153fE0b722548B154E7c86f1",
+    "StrategyScroll": "0x2E1042A93a8657Bad5BcBFa88F59a59abE42f7d2",
+    "VaultVerification": "",
+    "ManagerVerification": "https://sepolia-blockscout.scroll.io/address/0x08b59B9c3aAB242745f603F68eA6F992aaF473C0/contracts#address-tabs"
   }
 }
