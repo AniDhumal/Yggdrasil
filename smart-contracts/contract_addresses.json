@@ -20,5 +20,18 @@
     "Vault": "0x83E6B164C6D130567316cECF3Bc7879203772943",
     "StrategyManager": "0x938c795358fD433aDdbd1374eCe2aD69D61a31F2",
     "StrategyPolygon": "0xD54c7403F7f5c2dFEA07669C6b9b52F6bdc21AE5"
+  },
+  "base_addresses": {
+    "Vault": "0x938c795358fD433aDdbd1374eCe2aD69D61a31F2",
+    "StrategyManager": "0xD54c7403F7f5c2dFEA07669C6b9b52F6bdc21AE5",
+    "StrategyPolygon": "0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58"
+  },
+  "mantle_addresses": {
+    "Vault": "0x83E6B164C6D130567316cECF3Bc7879203772943",
+    "StrategyManager": "0x938c795358fD433aDdbd1374eCe2aD69D61a31F2",
+    "StrategyPolygon": "0xD54c7403F7f5c2dFEA07669C6b9b52F6bdc21AE5",
+    "VaultExplorer": "https://explorer.testnet.mantle.xyz/address/0x83E6B164C6D130567316cECF3Bc7879203772943",
+    "ManagerExplorer": "https://explorer.testnet.mantle.xyz/address/0x938c795358fD433aDdbd1374eCe2aD69D61a31F2",
+    "StrategyExplorer": "https://explorer.testnet.mantle.xyz/address/0xD54c7403F7f5c2dFEA07669C6b9b52F6bdc21AE5"
   }
 }
