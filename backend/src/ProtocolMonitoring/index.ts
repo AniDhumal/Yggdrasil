@@ -32,7 +32,7 @@ export default class ProtocolMonitoring {
 
   constructor() {
     this._consoleLog('Protocol Monitoring started.......');
-    this.ethService = new EthereumContractService();
+    this.ethService = new EthereumContractService(5);
     this.prisma = new PrismaClient();
     this._consoleLog('[Protocol Monitoring] : Ethereum Service & DB Service Established');
 
@@ -41,12 +41,9 @@ export default class ProtocolMonitoring {
     //@ts-ignore
     this.IwstETHABI = IwstETH.abi;
     const current_network = process.env.NETWORK as 'testnet' | 'mainnet';
-    this.StaderStakePoolManager_Address =
-      current_network === 'mainnet'
-        ? CONFIG.ADDRESSES.ETHEREUM.MAINNET.StaderStakePoolManager
-        : CONFIG.ADDRESSES.ETHEREUM.TESTNET.StaderStakePoolManager;
+    this.StaderStakePoolManager_Address = CONFIG.ADDRESSES.ETHEREUM.TESTNET.StaderStakePoolManager;
 
-    this.wstETH_Address = current_network === 'mainnet' ? CONFIG.ADDRESSES.ETHEREUM.MAINNET.wstETH : CONFIG.ADDRESSES.ETHEREUM.TESTNET.wstETH;
+    this.wstETH_Address = CONFIG.ADDRESSES.ETHEREUM.TESTNET.wstETH;
 
     this.isOn = true;
     const P_KEY = process.env.P_KEY_ETH as string;

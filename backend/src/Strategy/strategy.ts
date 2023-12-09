@@ -16,7 +16,7 @@ import { JsonRpcProvider, Wallet } from 'ethers';
 //   },
 // };
 
-const _Strategy_2_Market: string = '';
+const _Strategy_2_Market: string = '0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747'; // USDT
 
 export const _swapFusion = async (strategy_address: string, amount: string, user_address: string) => {
   const node_url = process.env.NODE_URL_MATIC as string;
@@ -40,7 +40,7 @@ export const _swapFusion = async (strategy_address: string, amount: string, user
     walletAddress: PRIV_KEY,
   });
 
-  const ethServ = new EthereumContractService();
+  const ethServ = new EthereumContractService(137);
   const wallet = new Wallet(PRIV_KEY, new JsonRpcProvider(node_url));
 
   const contract_call = await ethServ.writeContract(strategy_address, 'digestFromOffchainInvest', StrategyAbi, wallet, [
@@ -76,7 +76,7 @@ export const _swapFusionDivest = async (strategy_address: string, amount_investe
     walletAddress: PRIV_KEY,
   });
 
-  const ethServ = new EthereumContractService();
+  const ethServ = new EthereumContractService(137);
   const wallet = new Wallet(PRIV_KEY, new JsonRpcProvider(node_url));
 
   const contract_call = await ethServ.writeContract(strategy_address, 'digestFromOffchainDivest', StrategyAbi, wallet, [

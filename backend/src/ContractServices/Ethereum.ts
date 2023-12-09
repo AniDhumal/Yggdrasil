@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // =====================================================
 // Ethereum Contract Services
 // =====================================================
@@ -6,6 +7,7 @@
 
 require('dotenv').config({ path: `.env.${process.env.NETWORK}.local` });
 import { Contract, InterfaceAbi, JsonRpcProvider, Provider, Wallet } from 'ethers';
+import { CONFIG } from '../config';
 
 /**
  * @class EthereumContractService
@@ -14,8 +16,9 @@ import { Contract, InterfaceAbi, JsonRpcProvider, Provider, Wallet } from 'ether
 export default class EthereumContractService {
   provider: Provider;
 
-  constructor() {
-    const node_url = process.env.NODE_URL_ETH;
+  constructor(chainId: number) {
+    //@ts-ignore
+    const node_url = process.env[`NODE_URL_${CONFIG.CHAIN_MAPPING[chainId]}`];
     this.provider = new JsonRpcProvider(node_url);
   }
 
@@ -70,7 +73,7 @@ export default class EthereumContractService {
 // ? ===========================
 if (require.main === module) {
   const main = async () => {
-    const serv = new EthereumContractService();
+    const serv = new EthereumContractService(5);
     const contractAddress = '0xC45F41E3599271Cca4A146CD363dAE09Df90F7b1';
     const P_KEY = process.env.P_KEY_ETH as string;
     const ABI = [

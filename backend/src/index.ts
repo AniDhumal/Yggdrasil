@@ -6,9 +6,17 @@ import ProtocolMonitoring from './ProtocolMonitoring';
 class Main {
   eventMonitor: EventMonitoring;
   protocolMonitor: ProtocolMonitoring;
+  arbitrumStrategies: string[];
 
   constructor() {
-    this.eventMonitor = new EventMonitoring(CONFIG.CHAIN_NAME_MAPPING.ETHEREUM_GOERLI, ['0xdac17f958d2ee523a2206206994597c13d831ec7']);
+    // * Arbitrum Monitoring
+    // * ===================
+    this.arbitrumStrategies = ['0x938c795358fD433aDdbd1374eCe2aD69D61a31F2'];
+    this.eventMonitor = new EventMonitoring(CONFIG.CHAIN_NAME_MAPPING.ARBITRUM_GOERLI, this.arbitrumStrategies);
+
+    // * Protocol Monitoring
+    // * ===================
+    // -> Monitors the dapps for best option to invest
     this.protocolMonitor = new ProtocolMonitoring();
   }
 
@@ -19,12 +27,12 @@ class Main {
   };
 
   _consoleLog = (s: any) => {
-    console.log('>>>> [Main] :'.blue);
+    console.log('>>>> [Main] :'.bgCyan);
     console.log(s);
   };
 
   _consoleError = (s: any) => {
-    console.log('>>>> [Main] :'.red);
+    console.log('>>>> [Main] :'.bgCyan);
     console.log(s);
   };
 }

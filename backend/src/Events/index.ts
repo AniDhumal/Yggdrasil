@@ -25,7 +25,8 @@ export default class EventMonitoring {
     //@ts-ignore
     const jsonRpcUrl = process.env[`NODE_URL_${CONFIG.CHAIN_MAPPING[this.chain_id]}`] as string;
     this.provider = new JsonRpcProvider(jsonRpcUrl);
-    this.ethereumService = new EthereumContractService();
+    this.ethereumService = new EthereumContractService(chainId);
+    // ! ===========================================
     // ! dlya testa
     // this.strategyAbi = ['event Transfer(address indexed from, address indexed to, uint amount)'];
     // ! ===========================================
@@ -44,8 +45,8 @@ export default class EventMonitoring {
         const contract = new Contract(addr, this.strategyAbi, this.provider);
         const i = await contract.on('Invest', async (user_address, amountIn) => {
           const data = {
-            user_address,
-            amountIn,
+            user_address: user_address,
+            amountIn: amountIn,
           };
           await this.processData(data, ind, addr);
         });
@@ -58,7 +59,7 @@ export default class EventMonitoring {
     }
   };
 
-  processData = async (data: any, index: number, contract_address: string) => {
+  processData = (data: any, index: number, contract_address: string) => {
     this._consoleLog(`Data found [Strategy ID : ${index}] : ${data}`);
     const uniqueIdentifier = uuidv4();
     const strategy_monitor = new Strategy(contract_address, data.user_address, uniqueIdentifier, data.amountIn, this.provider);

@@ -16,6 +16,7 @@
     "@1inch/fusion-sdk": "^0.1.12",
     "@prisma/client": "5.7.0",
     "@types/uuid": "^9.0.7",
+    "axios": "^1.6.2",
     "bigint-isqrt": "^0.3.2",
     "colorts": "^0.1.63",
     "dotenv": "^16.3.1",
