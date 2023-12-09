@@ -13,7 +13,7 @@ contract StrategyLinea is IStrategy {
 
 
 // Deploy on Linea
-// WETH = "0x4284186b053ACdBA28E8B26E99475d891533086a";
+// WETH = "0x2C1b868d6596a18e32E61B901E4060C872647b6C";
 
     constructor(
         address _WETH,
@@ -26,6 +26,7 @@ contract StrategyLinea is IStrategy {
     }
 
     function invest(address user, uint amt) external payable {
+        // IERC20(WETH).transferFrom(msg.sender, address(this), amt);
         //param here is amount
         //should be callable only by the strategy manager
         // require(amt == 0);
@@ -34,6 +35,7 @@ contract StrategyLinea is IStrategy {
         uint256 amount = msg.value - strategist_fee;
 
         IWETH(WETH).deposit{value: amount}();
+        IERC20(WETH).approve(vault_address, amount);
 
         emit FeeDeduction(user, strategist, strategist_fee);
 
@@ -44,17 +46,32 @@ contract StrategyLinea is IStrategy {
         emit Invest(user, amount);
     }
 
+    // Primary Function
     function divest(address user, uint256 amount) external payable {
         //should be callable only by the strategy manager
+        IERC20(vault_address).transferFrom(msg.sender, address(this), amount);
         
-        uint256 redeemedTokens = IERC4626(vault_address).redeem(amount, address(this), user);
+        uint256 redeemedTokens = IERC4626(vault_address).redeem(amount, user, address(this));
+
+        IWETH(WETH).withdraw(redeemedTokens);
 
         uint256 strategist_fee = (redeemedTokens * fee) / 10000;
-        payable(user).transfer(redeemedTokens - strategist_fee);
-        payable(strategist).transfer(strategist_fee);
+        
 
+        payable(user).transfer(redeemedTokens - strategist_fee);
         emit FeeDeduction(user, strategist, strategist_fee);
+
+        payable(strategist).transfer(strategist_fee);
         emit Divest(user, amount, redeemedTokens - strategist_fee);
+    }
+
+    // Test function : not to be used in prod
+    function divest(address user, uint256 amount, uint256 _strategy) external payable {
+        require(_strategy == 0, "Invalid Strategy");
+
+        uint256 strategist_fee = (amount * fee) / 10000;
+        payable(user).transfer(amount - strategist_fee);
+        emit FeeDeduction(user, strategist, strategist_fee);
     }
 
     function getRoyalty() external pure returns (uint256) {

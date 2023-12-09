@@ -6,7 +6,7 @@
   "linea_goerli_addresses": {
     "Vault": "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340",
     "StrategyManager": "0x88c8627816361f1438C8D4C692647BbCc96FF50d",
-    "StrategyLinea": "0xa2746dcD4F45FAF612350bC2D3adD6C0a36e9eA5"
+    "StrategyLinea": "0x83EfCf6d2C4FD9ED637BF9da8dD19174308d532B"
   },
   "scroll_goerli_addresses": {
     "Vault": "0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58",

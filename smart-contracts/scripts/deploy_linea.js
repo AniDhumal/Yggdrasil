@@ -19,7 +19,7 @@ async function deployVault() {
 async function main() {
   const deployer_address = "0xDB8fbe9ddF3316F08CE6a82835C1F06d3a80b234";
   const linea_vault = "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340";
-  const linea_weth = "0x4284186b053ACdBA28E8B26E99475d891533086a";
+  const linea_weth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C";
 
   // deployVault();
 
@@ -38,21 +38,36 @@ async function main() {
 
 async function whitelist() {
   const manager = "0x88c8627816361f1438C8D4C692647BbCc96FF50d";
-  const strategy = "0xa2746dcD4F45FAF612350bC2D3adD6C0a36e9eA5";
+  const strategy = "0x83EfCf6d2C4FD9ED637BF9da8dD19174308d532B";
   const deployer_address = "0xDB8fbe9ddF3316F08CE6a82835C1F06d3a80b234";
+  // const linea_weth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C";
 
   let managerInstance = await ethers.getContractAt("StrategyManager", manager);
   // await managerInstance.whiteListStrategist(deployer_address);
   // await managerInstance.queueWhiteListStrategy(strategy, deployer_address);
   // await managerInstance.whiteListStrategy(strategy);
-  let strategyInstance = await ethers.getContractAt("StrategyLinea", strategy);
+  // let strategyInstance = await ethers.getContractAt("StrategyLinea", strategy);
+  // let weth = await ethers.getContractAt("IERC20", linea_weth);
+  // await weth.deposit({ value: ethers.parseEther("0.02") });
 
-  let tx = await strategyInstance.invest(deployer_address, "0", {
-    value: ethers.parseEther("0.01"),
-    // gasLimit: fee,
-  });
-  console.log("tx", tx);
-  await tx.wait();
+  // let tx = await strategyInstance.invest(
+  //   deployer_address,
+  //   "10000000000000000",
+  //   { value: ethers.parseEther("0.01") }
+  // );
+  // console.log("tx", tx);
+  // await tx.wait();
+
+  // let vault_address = "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340";
+  // let vault = await ethers.getContractAt("ETHVault", vault_address);
+  // await vault.approve(strategy, "9000000000000000");
+
+  // let result = await vault.maxRedeem(deployer_address);
+  // let result = weth.balanceOf(deployer_address);
+  // console.log(result);
+  // let tx = await strategyInstance.divest(deployer_address, "9000000000000000");
+  // console.log("tx", tx);
+  // await tx.wait();
 }
 
 async function testVault() {
