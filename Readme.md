@@ -13,7 +13,7 @@ Unlock the potential of multi-chain investing and be part of the future in strat
 
 - [Yggdrasil](#yggdrasil)
   - [Index](#index)
-  - [How we add strategies ?](#how-we-add-strategies-)
+  - [How to add strategies ?](#how-to-add-strategies-)
   - [Mechanism](#mechanism)
     - [Backend](#backend)
     - [Smart Contracts](#smart-contracts)
@@ -24,7 +24,7 @@ Unlock the potential of multi-chain investing and be part of the future in strat
   - [Future Scope](#future-scope)
     - [Team : Valhalla](#team--valhalla)
 
-## How we add strategies ?
+## How to add strategies ?
 
 As we know their are several people in blockchain space who are expert in trading and are generating a good amount of profit.
 
