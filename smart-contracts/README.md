@@ -35,7 +35,6 @@ Vault : 0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58
 Strategy Manager : 0x08b59B9c3aAB242745f603F68eA6F992aaF473C0
 Strategy Scroll : 0x5B7d72e1B7EDfF99153fE0b722548B154E7c86f1
 "ManagerVerification": "https://sepolia-blockscout.scroll.io/address/0x08b59B9c3aAB242745f603F68eA6F992aaF473C0/contracts#address-tabs"
-
 ```
 
 #### Linea Goerli
