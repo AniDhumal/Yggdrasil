@@ -20,11 +20,11 @@ async function main() {
   const scroll_vault = "0x4401de98fe700c5e2c62b2f2c6bed4aee135fc58";
   const scroll_weth = "0x5300000000000000000000000000000000000004";
 
-  // deployVault();
+  deployVault();
 
-  // const strategyManager = await hre.ethers.deployContract("StrategyManager");
-  // await strategyManager.waitForDeployment();
-  // console.log(`Strategy Manager deployed to ${strategyManager.target}`);
+  const strategyManager = await hre.ethers.deployContract("StrategyManager");
+  await strategyManager.waitForDeployment();
+  console.log(`Strategy Manager deployed to ${strategyManager.target}`);
 
   const constructorParams = [scroll_weth, deployer_address, scroll_vault];
   const strategy_scroll = await hre.ethers.deployContract(
@@ -36,37 +36,14 @@ async function main() {
 }
 
 async function whitelist() {
-  const manager = "0x5B7d72e1B7EDfF99153fE0b722548B154E7c86f1";
-  const strategy = "0x2E1042A93a8657Bad5BcBFa88F59a59abE42f7d2";
+  const manager = "0x08b59B9c3aAB242745f603F68eA6F992aaF473C0";
+  const strategy = "0x5B7d72e1B7EDfF99153fE0b722548B154E7c86f1";
   const deployer_address = "0xDB8fbe9ddF3316F08CE6a82835C1F06d3a80b234";
-  // const linea_weth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C";
 
   let managerInstance = await ethers.getContractAt("StrategyManager", manager);
   await managerInstance.whiteListStrategist(deployer_address);
-  // await managerInstance.queueWhiteListStrategy(strategy, deployer_address);
-  // await managerInstance.whiteListStrategy(strategy);
-  // let strategyInstance = await ethers.getContractAt("StrategyLinea", strategy);
-  // let weth = await ethers.getContractAt("IERC20", linea_weth);
-  // await weth.deposit({ value: ethers.parseEther("0.02") });
-
-  // let tx = await strategyInstance.invest(
-  //   deployer_address,
-  //   "10000000000000000",
-  //   { value: ethers.parseEther("0.01") }
-  // );
-  // console.log("tx", tx);
-  // await tx.wait();
-
-  // let vault_address = "0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58";
-  // let vault = await ethers.getContractAt("ETHVault", vault_address);
-  // await vault.approve(strategy, "9000000000000000");
-
-  // let result = await vault.maxRedeem(deployer_address);
-  // let result = weth.balanceOf(deployer_address);
-  // console.log(result);
-  // let tx = await strategyInstance.divest(deployer_address, "9000000000000000");
-  // console.log("tx", tx);
-  // await tx.wait();
+  await managerInstance.queueWhiteListStrategy(strategy, deployer_address);
+  await managerInstance.whiteListStrategy(strategy);
 }
 whitelist().catch((error) => {
   console.error(error);
