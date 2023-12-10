@@ -48,6 +48,15 @@ module.exports = {
       url: "https://rpc.public.zkevm-test.net",
       accounts: [LINEA_TESTNET_PRIVATE_KEY],
     },
+    base_goerli: {
+      url: "https://goerli.base.org",
+      accounts: [LINEA_TESTNET_PRIVATE_KEY],
+      gasPrice: 1000000000,
+    },
+    mantleTest: {
+      url: "https://rpc.testnet.mantle.xyz", // testnet
+      accounts: [LINEA_TESTNET_PRIVATE_KEY ?? ""],
+    },
     // etherscan: {
     //   apiKey: {
     //     scrollSepolia: "abc",

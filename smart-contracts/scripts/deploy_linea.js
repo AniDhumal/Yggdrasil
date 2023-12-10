@@ -1,7 +1,4 @@
-const { Contract } = require("ethers");
 const { ethers } = require("hardhat");
-
-// const hre = require("hardhat");
 
 async function deployVault() {
   // Eth vault
@@ -21,11 +18,11 @@ async function main() {
   const linea_vault = "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340";
   const linea_weth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C";
 
-  // deployVault();
+  deployVault();
 
-  // const strategyManager = await hre.ethers.deployContract("StrategyManager");
-  // await strategyManager.waitForDeployment();
-  // console.log(`Strategy Manager deployed to ${strategyManager.target}`);
+  const strategyManager = await hre.ethers.deployContract("StrategyManager");
+  await strategyManager.waitForDeployment();
+  console.log(`Strategy Manager deployed to ${strategyManager.target}`);
 
   const constructorParams = [linea_weth, deployer_address, linea_vault];
   const strategy_linea = await hre.ethers.deployContract(
@@ -43,48 +40,9 @@ async function whitelist() {
   // const linea_weth = "0x2C1b868d6596a18e32E61B901E4060C872647b6C";
 
   let managerInstance = await ethers.getContractAt("StrategyManager", manager);
-  // await managerInstance.whiteListStrategist(deployer_address);
-  // await managerInstance.queueWhiteListStrategy(strategy, deployer_address);
-  // await managerInstance.whiteListStrategy(strategy);
-  // let strategyInstance = await ethers.getContractAt("StrategyLinea", strategy);
-  // let weth = await ethers.getContractAt("IERC20", linea_weth);
-  // await weth.deposit({ value: ethers.parseEther("0.02") });
-
-  // let tx = await strategyInstance.invest(
-  //   deployer_address,
-  //   "10000000000000000",
-  //   { value: ethers.parseEther("0.01") }
-  // );
-  // console.log("tx", tx);
-  // await tx.wait();
-
-  // let vault_address = "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340";
-  // let vault = await ethers.getContractAt("ETHVault", vault_address);
-  // await vault.approve(strategy, "9000000000000000");
-
-  // let result = await vault.maxRedeem(deployer_address);
-  // let result = weth.balanceOf(deployer_address);
-  // console.log(result);
-  // let tx = await strategyInstance.divest(deployer_address, "9000000000000000");
-  // console.log("tx", tx);
-  // await tx.wait();
-}
-
-async function testVault() {
-  let vault_address = "0x5f10546E9316CA9380A2b00a78b78D3C3e7E7340";
-  let vault = await ethers.getContractAt("ETHVault", vault_address);
-
-  let deployer_address = "0xdb8fbe9ddf3316f08ce6a82835c1f06d3a80b234";
-
-  // await vault.deposit(
-  //   ethers.parseEther("0.02"),
-  //   "0xdb8fbe9ddf3316f08ce6a82835c1f06d3a80b234"
-  // );
-  await vault.redeem(
-    ethers.parseEther("0.02"),
-    deployer_address,
-    deployer_address
-  );
+  await managerInstance.whiteListStrategist(deployer_address);
+  await managerInstance.queueWhiteListStrategy(strategy, deployer_address);
+  await managerInstance.whiteListStrategy(strategy);
 }
 
 whitelist().catch((error) => {
