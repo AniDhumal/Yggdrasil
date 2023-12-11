@@ -6,19 +6,19 @@ function Strategies() {
   const cardsData = [
     {
       id: 1,
-      heading: 'JediSwap Naive Joint Liquidity vault for DAI/ETH (ETH tranche)',
+      heading: 'Shushi Naive Joint Liquidity vault for DAI/ETH (ETH tranche)',
       description: 'Jointly mints JediSwap DAI/ETH liquidity shares with the corresponding DAI vault using 0 slippage',
       apy : 60
     },
     {
       id: 2,
-      heading: 'JediSwap Naive Joint Liquidity vault for DAI/ETH (DAI tranche)',
+      heading: 'uniswap Naive Joint Liquidity vault for DAI/ETH (DAI tranche)',
       description: 'Jointly mints JediSwap DAI/ETH liquidity shares with the corresponding ETH vault using 0 slippage',
       apy : 70
     },
     {
       id: 3,
-      heading: 'JediSwap Naive Joint Liquidity vault for DAI/ETH (DAI tranche)',
+      heading: 'Aave Naive Joint Liquidity vault for DAI/ETH (DAI tranche)',
       description: 'Jointly mints JediSwap DAI/ETH liquidity shares with the corresponding ETH vault using 0 slippage',
       apy : 50
     },

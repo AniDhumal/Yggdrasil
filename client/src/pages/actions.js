@@ -1,14 +1,20 @@
+import {React, useEffect, useState} from 'react';
 import DashboardCard from "../components/dashboardCard";
 import Dropdown from "../components/dropdown";
+import { useDetails } from '../hooks/contextHooks';
 
 function Actions() { 
+
+  const { chainId } = useDetails();
+  let [sortedArray, setSortedArray] = useState();
+
     // const options = ['Option 1', 'Option 2', 'Option 3'];
     // Sample data for multiple cards
   const cardsData = [
     {
       id: 1,
-      heading: 'JediSwap Naive Joint Liquidity vault for DAI/ETH (ETH tranche)',
-      description: 'Jointly mints JediSwap DAI/ETH liquidity shares with the corresponding DAI vault using 0 slippage',
+      heading: 'Simple staking strategy',
+      description: 'Farm yield by depositing into a vault which is intended to be used as a treasury in case of emergency',
       apy : 60,
       chainId: 59140,
       networkName: 'Linea Goerli',
@@ -18,8 +24,8 @@ function Actions() {
     },
     {
       id: 2,
-      heading: 'JediSwap Naive Joint Liquidity vault for DAI/ETH (DAI tranche)',
-      description: 'Jointly mints JediSwap DAI/ETH liquidity shares with the corresponding ETH vault using 0 slippage',
+      heading: 'Angel Investing Strategy',
+      description: 'Leverage high user traffic in Arbitrum for a custom Angel Investing vault',
       apy : 70,
       chainId: 421613,
       networkName: 'Arbitrum Goerli',
@@ -29,16 +35,66 @@ function Actions() {
     },
     {
       id: 3,
-      heading: 'JediSwap Naive Joint Liquidity vault for DAI/ETH (DAI tranche)',
+      heading: 'Privacy investing',
       description: 'Jointly mints JediSwap DAI/ETH liquidity shares with the corresponding ETH vault using 0 slippage',
       apy : 50,
       chainId: 534351,
       networkName: 'Scroll Sepolia',
-      strategyAddress: '0x2E1042A93a8657Bad5BcBFa88F59a59abE42f7d2',
-      strategyManagerAddress: '0x5B7d72e1B7EDfF99153fE0b722548B154E7c86f1',
+      strategyAddress: '0x5B7d72e1B7EDfF99153fE0b722548B154E7c86f1',
+      strategyManagerAddress: '0x08b59B9c3aAB242745f603F68eA6F992aaF473C0',
       vault: "0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58"
     },
+    {
+      id: 4,
+      heading: 'Simple staking strategy ',
+      description: 'Farm yield by depositing into a vault which is intended to be used as a treasury in case of emergency',
+      apy : 50,
+      chainId: 1442,
+      networkName: 'Polygon zkEVM Testnet',
+      strategyAddress: '0xD54c7403F7f5c2dFEA07669C6b9b52F6bdc21AE5',
+      strategyManagerAddress: '0x938c795358fD433aDdbd1374eCe2aD69D61a31F2',
+      vault: "0x83E6B164C6D130567316cECF3Bc7879203772943"
+    },
+    {
+      id: 5,
+      heading: 'Angel Investing Strategy',
+      description: 'Leverage high user traffic in Arbitrum for a custom Angel Investing vault',
+      apy : 50,
+      chainId: 84531,
+      networkName: 'Base Goerli',
+      strategyAddress: '0x4401DE98fE700c5E2c62b2f2C6BeD4AEE135fC58',
+      strategyManagerAddress: '0xD54c7403F7f5c2dFEA07669C6b9b52F6bdc21AE5',
+      vault: "0x938c795358fD433aDdbd1374eCe2aD69D61a31F2"
+    },
+    {
+      id: 6,
+      heading: 'JediSwap Naive Joint Liquidity vault for DAI/ETH (DAI tranche)',
+      description: 'Jointly mints JediSwap DAI/ETH liquidity shares with the corresponding ETH vault using 0 slippage',
+      apy : 50,
+      chainId: 5001,
+      networkName: 'Mantle Testnet',
+      strategyAddress: '0x439f7f12Ee3b5D8F51D02019C4501fb2d84054f0',
+      strategyManagerAddress: '0x938c795358fD433aDdbd1374eCe2aD69D61a31F2',
+      vault: "0x83E6B164C6D130567316cECF3Bc7879203772943"
+    },
+
   ];
+
+  function filterAndMoveFirst(cardsData, targetChainId) {
+    if(chainId == undefined){
+      return cardsData;
+    }
+    // Filter out items that match the target chainId
+    const matchingItems = cardsData.filter(item => item.chainId === targetChainId);
+  
+    // Filter out items that do not match the target chainId
+    const nonMatchingItems = cardsData.filter(item => item.chainId !== targetChainId);
+  
+    // Concatenate the arrays with matching items at the first index
+    const newArray = [...matchingItems, ...nonMatchingItems];
+  
+    return newArray;
+  }
 
 
     const handleOptionSelect = (selectedOption) => {
@@ -46,25 +102,54 @@ function Actions() {
       // Add logic to handle the selected option
     };
 
+
+    useEffect(() => {
+      (async () => {
+        try {
+          let newArray = filterAndMoveFirst(cardsData, chainId);
+          setSortedArray(newArray);  
+        } catch (err) {
+          console.log('Error occured when fetching books');
+        }
+      })();
+    }, [chainId]);
+
     return ( 
        <div className="h-full flex justify-center w-full"> 
-            {/* <h1 className=""> This is the Actions page </h1>  */}
-            {/* <Dropdown options={options} onSelect={handleOptionSelect} /> */}
 
-            <div className="mt-10 bg-slate-50 w-full mx-20 p-10">
-                {cardsData.map((card) => (
+          <div className="mt-10 bg-slate-50 w-full mx-20 p-10">
+              {chainId === undefined ? (
+              // Render original cardsData if chainId is undefined
+              cardsData.map(card => (
+                <DashboardCard
+                      key={card.id}
+                      heading={card.heading}
+                      description={card.description}
+                      apy={card.apy}
+                      _chainId={card.chainId}
+                      networkName={card.networkName}
+                      strategyAddress={card.strategyAddress}
+                      strategyManagerAddress={card.strategyManagerAddress}
+                      vaultAddress={card.vault}
+                    />
+                  ))
+                ) : (
+                  // Render sortedArray if chainId is defined
+                  sortedArray?.map(card => (
                     <DashboardCard
-                        key={card.id}
-                        heading={card.heading}
-                        description={card.description}
-                        apy={card.apy}
-                        _chainId={card.chainId}
-                        networkName={card.networkName}
-                        strategyAddress={card.strategyAddress}
-                        strategyManagerAddress={card.strategyManagerAddress}
-                      />
-                ))}
-            </div>
+                      key={card.id}
+                      heading={card.heading}
+                      description={card.description}
+                      apy={card.apy}
+                      _chainId={card.chainId}
+                      networkName={card.networkName}
+                      strategyAddress={card.strategyAddress}
+                      strategyManagerAddress={card.strategyManagerAddress}
+                      vaultAddress={card.vault}
+                    />
+                  ))
+                )}
+          </div>
       </div> 
     ); 
 } 

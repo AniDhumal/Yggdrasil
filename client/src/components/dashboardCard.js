@@ -1,14 +1,16 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import { useDetails } from '../hooks/contextHooks';
 import { ethers, Contract, parseUnits, parseEther } from "ethers";
 import managerAbi from '../abis/StrategyManager.json'
+import vaultAbi from '../abis/ETHVault.json'
 import axios, * as others from 'axios';
 import {Buffer} from 'buffer';
 import { Modal } from './modal';
 import SelectOptions from './selectOptions';
+import erc20Abi from '../abis/erc20Abi.json'
 
 
-const DashboardCard = ({ heading, description, apy, _chainId, networkName, strategyAddress, strategyManagerAddress }) => {
+const DashboardCard = ({ heading, description, apy, _chainId, networkName, strategyAddress, strategyManagerAddress, vaultAddress }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(0);
 
@@ -16,6 +18,30 @@ const DashboardCard = ({ heading, description, apy, _chainId, networkName, strat
   const [suggestedMaxFeePerGas, setSuggestedMaxFeePerGas] = useState(0);
   const [maxPriorityFeePerGas, setMaxPriorityFeePerGas] = useState(0);
   const [maxWaitTime, setMaxWaitTime] = useState(0);
+
+  const [shares, setShares] = useState(0);
+  
+  useEffect(() => {
+    (async () => {
+      try {
+
+        const provider = new ethers.BrowserProvider(window.ethereum)
+        const signer = await provider.getSigner();
+    
+        const abi = vaultAbi.abi;
+    
+        console.log("vaultAddress", vaultAddress)
+        const vaultContract = new Contract(vaultAddress, abi, signer);
+
+        let maxRedeemAmount = await vaultContract.maxRedeem(signer.address);
+        console.log("maxRedeemAmount", maxRedeemAmount);
+        setShares(maxRedeemAmount);
+
+      } catch (err) {
+        console.log('Error occured when fetching books');
+      }
+    })();
+  }, []);
 
   const openModal = async () => {
     setModalOpen(true);
@@ -72,72 +98,87 @@ const estimateGasFee = async () => {
 
 
   const handleInvest = async (_amount) => {
-    if(chainId == 137){
-      console.log("polygon mainnet handleInvest")
-    }else{
-      const provider = new ethers.BrowserProvider(window.ethereum)
+    const provider = new ethers.BrowserProvider(window.ethereum)
     const signer = await provider.getSigner();
 
-    console.log("signer", signer)
+    // console.log(provider);
+
+    // console.log("signer", signer)
 
     const abi = managerAbi.abi;
 
     const managerContract = new Contract(strategyManagerAddress, abi, signer);
 
-    // const data = await getMetaskEstFee();
 
-    console.log("suggestedMaxFeePerGas-----", suggestedMaxFeePerGas)
-    const fee = suggestedMaxFeePerGas * 10**8;
-    console.log("fee-----", fee)
+    if(chainId == 5001){
+      try {
+        const erc20abi = erc20Abi;
+        console.log("erc20Abi")
+        let amount = ethers.parseUnits(_amount, 18)
+        console.log("amount", amount);
+        const erc20Contract = new Contract("0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", erc20abi, provider)
+        let tx0 = await erc20Contract.approve("0x439f7f12Ee3b5D8F51D02019C4501fb2d84054f0", amount);
+        // console.log(tx0)
+        // await tx0.wait();
 
-    let fee1 = 50000000;
-
-
-    try {
-      // Send the transaction
-      console.log("calling investing......")
-      let tx = await managerContract.invest(
-        ethers.parseEther('0'), 
-        strategyAddress, {
-          value: ethers.parseEther(_amount),
-          // gasLimit: Math.floor(fee)
-        }, 
-      );
-      console.log("tx", tx)
-      await tx.wait()
-    } catch (error) {
-      console.log("transaction reverted by user");
+        // console.log("calling investing......")
+        // let tx = await managerContract.invest(
+        //   amount, 
+        //   strategyAddress
+        // );
+        // console.log("tx", tx)
+        // await tx.wait()
+      } catch (error) {
+        console.log("transaction reverted");
+        console.log(error)
+      }
+      
+    }else{
+        try {
+          console.log("calling investing......")
+          let tx = await managerContract.invest(
+            ethers.parseEther('0'), 
+            strategyAddress, {
+              value: ethers.parseEther(_amount),
+            }, 
+          );
+          console.log("tx", tx)
+          await tx.wait()
+        } catch (error) {
+          console.log("transaction reverted");
+        }
     }
-    }
-    
-    // 56400000
-    // 50000000
-    
-  }
+        
+}
 
   const handleDivest = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum)
     const signer = await provider.getSigner();
 
-    const abi = managerAbi.abi;
+    const abi = vaultAbi.abi;
 
-    const managerContract = new Contract(strategyManagerAddress, abi, signer);
+    console.log("vaultAddress", vaultAddress)
+    const vaultContract = new Contract(vaultAddress, abi, signer);
 
-    const nonce = await getUserNonce(signer.address);
+    // console.log(vaultContract)
+
+    // const nonce = await getUserNonce(signer.address);
 
     try {
+      let maxRedeemAmount = await vaultContract.maxRedeem(signer.address);
+      console.log("maxRedeemAmount", maxRedeemAmount);
+      console.log("shares", shares);
       // Send the transaction
       console.log("calling investing......")
-      let tx = await managerContract.divest(
-        nonce, 
-        {
-          gasLimit: 50000000
-        }, 
+      let tx = await vaultContract.redeem(
+        maxRedeemAmount,
+        signer.address,
+        signer.address, 
       );
       console.log("tx", tx)
       await tx.wait()
     } catch (error) {
-      console.log("transaction reverted by user");
+      console.log("transaction reverted");
     }
   }
 
@@ -188,13 +229,27 @@ const estimateGasFee = async () => {
     const seconds = milliseconds / 1000;
     return seconds;
   }
+
+
+  function convertBigIntToNumber(bigIntValue) {
+    // Using Number() constructor
+    // Note: This might lose precision for very large BigInt values
+    const regularNumber1 = Number(bigIntValue);
+  
+    // Using unary plus (+) operator
+    // Note: This might lose precision for very large BigInt values
+    const regularNumber2 = +bigIntValue;
+  
+    return [regularNumber1, regularNumber2];
+  }
   
 
 
   return (
-    <div className="bg-white rounded-md shadow-md p-4 my-8 shadow-2xl">
+    <div className={`${chainId !== _chainId ? 'bg-white' : 'bg-slate-400'}  rounded-md shadow-md p-4 my-8 shadow-2xl`}>
       {chainId !== _chainId ? <p className='m-8 p-2 text-lg text-white bg-red-300 rounded-lg'> ⚠️ Please switch network to <span className='font-semibold'>{networkName == 'mainnet' ? 'Ethereum' + ' ' + networkName : networkName}</span>  to use this strategy</p> : <></>}
 
+      <p className='mx-8 my-5 p-1 bg-teal-300 rounded-lg text-sm w-fit'>Network: {networkName}</p>
       <h2 className="m-8 text-xl font-bold mb-2">{heading}</h2>
       <p className="m-8 text-gray-700">{description}</p>
       <hr className="my-4" />
@@ -205,22 +260,24 @@ const estimateGasFee = async () => {
       <hr className="my-4" />
 
         <div className='flex bg-slate-50'>
-          <div className='m-8 w-1/2'>
-            <h3 className='m-2 p-2'>Available balance:{}</h3>
+          <div className='m-8 w-1/2 mt-12'>
+            {/* <h3 className='m-2 p-2'>Available balance:{}</h3> */}
 
-            <h2 className='mx-2 p-2'>Deposit Amount</h2>
+            <h3 className='mx-2 p-2'>Deposit Amount</h3>
 
             <div className="flex flex-col">
               <input type="number" value={inputValue} className="m-2 p-2" placeholder='0.0' onChange={handleInputInvestChange}></input>
-              { chainId == 421613 || chainId == 534351 ?
-                  <button onClick={()=>handleInvest(
-                    inputValue.toString()
-                  )} className={`m-2 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded ${chainId !== _chainId ? 'disabled:opacity-50 cursor-not-allowed': ''}`} disabled={chainId !== _chainId}>
-                  Invest
-                </button> :
-                  <button onClick={openModal} className={`m-2 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded ${chainId !== _chainId ? 'disabled:opacity-50 cursor-not-allowed': ''}`} disabled={chainId !== _chainId}>
+              { chainId == 59140 
+                ?
+                <button onClick={openModal} className={`m-2 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded ${chainId !== _chainId ? 'disabled:opacity-50 cursor-not-allowed': ''}`} disabled={chainId !== _chainId}>
                     Invest
                   </button>
+                :
+                  <button onClick={()=>handleInvest(
+                    inputValue.toString()
+                  )} className={`m-2  bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded ${chainId !== _chainId ? 'disabled:opacity-50 cursor-not-allowed': ''}`} disabled={chainId !== _chainId}>
+                  Invest
+                </button>  
               }
             </div>
 
@@ -228,12 +285,12 @@ const estimateGasFee = async () => {
 
 
             <div className='m-8 w-1/2'>
-                <h3 className='m-2 p-2'>Max Withdrawal:{}</h3>
+                <h3 className='m-2 p-2'>Available Shares:</h3>
 
-                <h2 className='mx-2 p-2'>Withdrawal Amount</h2>
+                {/* <h2 className='mx-2 p-2'>Withdrawal Amount</h2> */}
 
                 <div className="flex flex-col">
-                  <input disabled className="m-2 p-2" placeholder='0.0'></input>
+                  <input disabled className="m-2 p-2" placeholder={shares}></input>
                   <button 
                     className={`m-2 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded ${chainId !== _chainId ? 'disabled:opacity-50 cursor-not-allowed': ''}`} 
                     disabled={chainId !== _chainId}
